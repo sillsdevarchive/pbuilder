@@ -38,7 +38,7 @@ do
 		sudo pbuilder --create --configfile $PBHOME/pbuilderrc-$NAME
 	else
 		echo "need to update $NAME"
-		sudo pbuilder --update --override-config --configfile $PBHOME/pbuilderrc-$NAME
+		sudo pbuilder --update --configfile $PBHOME/pbuilderrc-$NAME
 	fi
  #   if [ ! -f $PBHOME/base-$NAME-lingnet.tgz ]; then
  #       echo "need to create pbuilder base $NAME-lingnet"
@@ -48,10 +48,9 @@ do
  #   fi
 	if [ ! -f $PBHOME/base-$NAME-new.tgz ]; then
 		echo "need to create pbuilder base $NAME-new"
-		cp $PBHOME/base-$NAME.tgz $PBHOME/base-$NAME-new.tgz
-		sudo pbuilder --update --override-config --configfile $PBHOME/pbuilderrc-$NAME-new
+		sudo pbuilder --create --configfile $PBHOME/pbuilderrc-$NAME-new
 	else
 		echo "need to update $NAME-new"
-		sudo pbuilder --update --override-config --configfile $PBHOME/pbuilderrc-$NAME-new
+		sudo pbuilder --update --configfile $PBHOME/pbuilderrc-$NAME-new
 	fi
 done
