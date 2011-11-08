@@ -37,17 +37,16 @@ OTHERMIRROR=""
 
 echo "basetgz: $BASETGZ"
 
-
-if [ "{$VARIANT}" = "new" ]; then
+echo "variant: $VARIANT"
+if [ "$VARIANT" = "new" ]; then
 	OTHERMIRROR="deb http://packages.palaso.org/ubuntu $DIST main|"
-elif [ "{$VARIANT}" = "lingnet" ]; then
+elif [ "$VARIANT" = "lingnet" ]; then
 	OTHERMIRROR="deb http://packages.build2.lingnet/ubuntu lucid main|"
 fi
 
-echo "debbuildopts: $DEBBUILDOPTS"
+echo "arch: $ARCH"
 
-
-OTHERMIRROR+="deb http://packages.sil.org/ubuntu $DIST main|deb http://archive.ubuntu.com/ubuntu $DIST universe restricted multiverse"
+OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST main|deb http://archive.ubuntu.com/ubuntu $DIST universe restricted multiverse"
 
 echo "othermirror: $OTHERMIRROR"
 
@@ -88,13 +87,13 @@ PBUILDERSATISFYDEPENDSCMD="/usr/lib/pbuilder/pbuilder-satisfydepends"
 
 #default is to build everything. Passed on to dpkg-buildpackage
 #DEBBUILDOPTS="-b"
-if [ "{$ARCH}" != "i386" ]; then
+if [ "$ARCH" != "i386" ]; then
 	DEBBUILDOPTS="-B"
 else
 	DEBBUILDOPTS=""
 fi
 
-echo "arch: $ARCH"
+echo "debbuildopts: $DEBBUILDOPTS"
 
 
 #APT configuration files directory
