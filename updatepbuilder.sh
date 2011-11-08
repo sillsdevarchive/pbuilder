@@ -18,14 +18,14 @@ do
 		echo "" >> $PBHOME/pbuilderrc-$NAME
 		echo "source $PBHOME/pbuilderrc_palaso" >> $PBHOME/pbuilderrc-$NAME
 	fi
-#    if [ ! -f $PBHOME/pbuilderrc-$target-lingnet ]; then
+#    if [ ! -f $PBHOME/pbuilderrc-$NAME-lingnet ]; then
 #        echo "need to create file pbuilderrc-$NAME-lingnet"
 #        echo "DIST=\"$target\"" > $PBHOME/pbuilderrc-$NAME-lingnet
 #        echo "VARIANT=\"new\"" >> $PBHOME/pbuilderrc-$NAME-lingnet
 #        echo "" >> $PBHOME/pbuilderrc-$target-new
 #        echo "source $PBHOME/pbuilderrc_palaso" >> $PBHOME/pbuilderrc-$NAME-lingnet
 #    fi
-	if [ ! -f $PBHOME/pbuilderrc-$target-new ]; then
+	if [ ! -f $PBHOME/pbuilderrc-$NAME-new ]; then
 		echo "need to create file pbuilderrc-$NAME-new"
 		echo "DIST=\"$target\"" > $PBHOME/pbuilderrc-$NAME-new
 		echo "VARIANT=\"new\"" >> $PBHOME/pbuilderrc-$NAME-new
