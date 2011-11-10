@@ -17,6 +17,7 @@ cd $PBDIR && hg pull && hg update
 
 if ! cmp -s $PBDIR/targets $PBDIR/targets.old; then
 	cd $PBDIR && ./updatepbuilder.sh > /home/bob/updatepb.log
+	cd $PBDIR && ./createdputconf > /home/bob/.dput.cf
 	cp $PBDIR/targets $PBDIR/targets.old
 #    echo "run updatepbuilder.sh"
 #else
