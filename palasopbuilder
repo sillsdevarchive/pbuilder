@@ -2,7 +2,6 @@
 
 # Cron sript
 
-set -e
 PBDIR=/home/bob/pbuilder
 
 [ -x $PBDIR/updatepbuilder.sh ] || exit 0
