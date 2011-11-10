@@ -9,6 +9,7 @@ PBDIR=/home/bob/pbuilder
 [ -e $PBDIR/targets.old ] || cp $PBDIR/targets $PBDIR/targets.old
 [ -w $PBDIR/targets.old ] || exit 0
 
+date
 cd $PBDIR && hg pull && hg update
 
 if ! cmp -s $PBDIR/targets $PBDIR/targets.old; then
