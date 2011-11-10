@@ -13,7 +13,7 @@ PBDIR=/home/bob/pbuilder
 cd $PBDIR && hg pull && hg update
 
 if ! cmp -s $PBDIR/targets $PBDIR/targets.old; then
-	cd $PBDIR && ./updatepbuilder.sh
+	cd $PBDIR && ./updatepbuilder.sh  > /home/bob/updatepb.log
 	cp $PBDIR/targets $PBDIR/targets.old
 #    echo "run updatepbuilder.sh"
 #else
