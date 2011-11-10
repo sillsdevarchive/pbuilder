@@ -1,0 +1,18 @@
+#! /bin/bash
+
+# Cron sript
+
+set -e
+PBDIR=/home/bob/pbuilder
+
+[ -x $PBDIR/updatepbuilder.sh ] || exit 0
+[ -r $PBDIR/targets ] || exit 0
+[ -e $PBDIR/targets.old ] || cp $PBDIR/targets $PBDIR/targets.old
+[ -w $PBDIR/targets.old ] || exit 0
+
+if ! cmp -s $PBDIR/targets $PBDIR/targets.old; then
+	cd $PBDIR && ./updatepbuilder.sh
+#    echo "run updatepbuilder.sh"
+#else
+#    echo "nothing has changed"
+fi
