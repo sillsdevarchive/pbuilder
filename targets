@@ -1,1 +1,2 @@
 TARGETS="lucid maverick natty oneiric"
+BUILD_ARCH="i386 amd64"

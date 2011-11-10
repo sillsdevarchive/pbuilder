@@ -3,7 +3,6 @@
 
 # Optionally set the architecture to the host architecture if none set. Note
 # that you can set your own default (i.e. ${ARCH:="i386"}).
-: ${ARCH:="$(dpkg --print-architecture)"}
 
 # Set the debootstrap variant to 'buildd' type.
 # DEBOOTSTRAPOPTS[0]='--variant=buildd'
