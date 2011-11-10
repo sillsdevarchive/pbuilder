@@ -3,3 +3,4 @@ glob:aptcache
 glob:results
 glob:*.tgz
 glob:pbuilderrc-*
+glob:targets.old
