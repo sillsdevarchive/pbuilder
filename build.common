@@ -31,8 +31,9 @@ cp -r $HERE/* debian
 
 dpatch apply-all -v
 
-CHANGELOG = `mktemp`
-cp debian/changelog $CHANGELOG
+CHANGELOG="`mktemp`" || exit $?
+cp debian/changelog "$CHANGELOG" || exit $?
+echo "made changelog $CHANGELOG"
 
 for ARCH in BUILD_ARCHS; do
 	for TARGET in TARGETS; do
