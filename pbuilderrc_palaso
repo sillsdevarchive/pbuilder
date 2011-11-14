@@ -53,7 +53,7 @@ echo "othermirror: $OTHERMIRROR"
 USEPROC=yes
 USEDEVPTS=yes
 USEDEVFS=no
-BUILDRESULT="/home/bob/pbuilder/results/$NAME"
+BUILDRESULT="/home/bob/pbuilder/results/$DIST"
 
 echo "buildresult: $BUILDRESULT"
 

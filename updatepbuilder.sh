@@ -3,9 +3,9 @@ PBHOME=`pwd`
 
 source $PBHOME/targets
 
-for arch in $BUILD_ARCH
+for target in $TARGETS
 do
-	for target in $TARGETS
+	for arch in $BUILD_ARCH
 	do
 		NAME="$target-$arch"
 
@@ -53,4 +53,7 @@ do
 			sudo pbuilder --update --configfile $PBHOME/pbuilderrc-$NAME-new
 		fi
 	done
+	if [ ! -d $PBHOME/results/$target]; then
+		mkdir -p $PBHOME/results/$target
+	fi
 done
