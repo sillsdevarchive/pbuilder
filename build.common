@@ -28,6 +28,7 @@ ${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} || exit $?
 cd ${PRODUCT}-${BASE}
 mkdir debian
 cp -r $HERE/* debian
+rm debian/build debian/gbp.conf
 
 dpatch apply-all -v
 
