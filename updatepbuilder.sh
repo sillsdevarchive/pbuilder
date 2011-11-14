@@ -53,7 +53,8 @@ do
 			sudo pbuilder --update --configfile $PBHOME/pbuilderrc-$NAME-new
 		fi
 	done
-	if [ ! -d $PBHOME/results/$target]; then
+	if [ ! -d $PBHOME/results/$target ]; then
+		echo "creating results dir $PBHOME/results/$target"
 		mkdir -p $PBHOME/results/$target
 	fi
 done
