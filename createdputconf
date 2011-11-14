@@ -2,7 +2,7 @@
 
 source /home/bob/pbuilder/targets
 
-echo "targets: $TARGETS"
+echo "# targets: $TARGETS"
 
 echo "# with dput for uploading.
 
@@ -33,6 +33,13 @@ for TARGET in $TARGETS; do
 echo "[PALASO-${TARGET}]
 method = scp
 fqdn = packages.palaso.org
+incoming = /var/lib/debarchiver/incoming/${TARGET}
+login = packager
+"
+
+echo "[LINGNET-${TARGET}]
+method = scp
+fqdn = packages.lingnet
 incoming = /var/lib/debarchiver/incoming/${TARGET}
 login = packager
 "
