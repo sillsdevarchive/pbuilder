@@ -44,7 +44,8 @@ for ARCH in $BUILD_ARCHS; do
 		fi
 		echo "name: $NAME"
 		VERSION=`dpkg-parsechangelog | grep 'Version:' | sed -e 's/^Version: //'`
-		dch --force-distribution --distribution $TARGET -v $VERSION.$REVISION "Auto Build" || exit $?
+		dch --force-distribution --distribution $TARGET -m -v $VERSION.$REVISION "Auto Build" || exit $?
+		echo "version:$VERSION revision:$REVISION"
 
 		echo ">> pdebuild"
 		#pdebuild --configfile /home/bob/pbuilder/pbuilderrc-lucid --auto-debsign || exit $?
