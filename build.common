@@ -5,6 +5,15 @@ if [ ! -n "${BUILD_ARCHS}" ]; then
 fi
 
 echo "build archs: $BUILD_ARCHS"
+echo "ziptype: ${ZIPTYPE}"
+
+if [ "${ZIPTYPE}" = "bz2" ]; then
+	TAR='tar -xjf'
+elif [ "{$ZIPTYPE}" = "gz" ]; then
+	TAR='tar -xzf'
+else
+	TAR='tar -xf'
+fi
 
 echo ">> rm -fr $DEST"
 rm -fr $DEST
@@ -12,10 +21,10 @@ mkdir $DEST
 cd $DEST
 
 echo ">> cp from ~/upstream"
-cp ~/upstream/${PRODUCT}_${BASE}.orig.tar.gz ${PRODUCT}_${BASE}.orig.tar.gz
+cp ~/upstream/${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}
 
-echo ">> tar -xzf ${PRODUCT}_${BASE}.orig.tar.gz"
-tar -xzf ${PRODUCT}_${BASE}.orig.tar.gz || exit $?
+echo ">> ${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}"
+${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} || exit $?
 cd ${PRODUCT}-${BASE}
 mkdir debian
 cp -r $HERE/* debian
