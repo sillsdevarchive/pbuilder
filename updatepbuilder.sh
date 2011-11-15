@@ -40,12 +40,13 @@ do
 			echo "need to update $NAME"
 			sudo pbuilder --update --configfile $PBHOME/pbuilderrc-$NAME
 		fi
- #   if [ ! -f $PBHOME/base-$NAME-lingnet.tgz ]; then
- #       echo "need to create pbuilder base $NAME-lingnet"
- #   else
- #       echo "need to update $NAME-lingnet"
- #       pbuilder --update --configfile $PBHOME/pbuilderrc-$NAME-lingnet
- #   fi
+		if [ ! -f $PBHOME/base-$NAME-lingnet.tgz ]; then
+			echo "need to create pbuilder base $NAME-lingnet"
+			sudo pbuilder --create --configfile $PBHOME/pbuilderrc-$NAME-lingnet
+		else
+			echo "need to update $NAME-lingnet"
+			sudo pbuilder --update --configfile $PBHOME/pbuilderrc-$NAME-lingnet
+		fi
 		if [ ! -f $PBHOME/base-$NAME-new.tgz ]; then
 			echo "need to create pbuilder base $NAME-new"
 			sudo pbuilder --create --configfile $PBHOME/pbuilderrc-$NAME-new
