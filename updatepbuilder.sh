@@ -16,13 +16,14 @@ do
 			echo "" >> $PBHOME/pbuilderrc-$NAME
 			echo "source $PBHOME/pbuilderrc_palaso" >> $PBHOME/pbuilderrc-$NAME
 		fi
-#    if [ ! -f $PBHOME/pbuilderrc-$NAME-lingnet ]; then
-#        echo "need to create file pbuilderrc-$NAME-lingnet"
-#        echo "DIST=\"$target\"" > $PBHOME/pbuilderrc-$NAME-lingnet
-#        echo "VARIANT=\"new\"" >> $PBHOME/pbuilderrc-$NAME-lingnet
-#        echo "" >> $PBHOME/pbuilderrc-$target-new
-#        echo "source $PBHOME/pbuilderrc_palaso" >> $PBHOME/pbuilderrc-$NAME-lingnet
-#    fi
+		if [ ! -f $PBHOME/pbuilderrc-$NAME-lingnet ]; then
+			echo "need to create file pbuilderrc-$NAME-lingnet"
+			echo "DIST=\"$target\"" > $PBHOME/pbuilderrc-$NAME-lingnet
+			echo "ARCH=\"$arch\"" >> $PBHOME/pbuilderrc-$NAME-lingnet
+			echo "VARIANT=\"lingnet\"" >> $PBHOME/pbuilderrc-$NAME-lingnet
+			echo "" >> $PBHOME/pbuilderrc-$target-lingnet
+			echo "source $PBHOME/pbuilderrc_palaso" >> $PBHOME/pbuilderrc-$NAME-lingnet
+		fi
 		if [ ! -f $PBHOME/pbuilderrc-$NAME-new ]; then
 			echo "need to create file pbuilderrc-$NAME-new"
 			echo "DIST=\"$target\"" > $PBHOME/pbuilderrc-$NAME-new
@@ -39,12 +40,13 @@ do
 			echo "need to update $NAME"
 			sudo pbuilder --update --configfile $PBHOME/pbuilderrc-$NAME
 		fi
- #   if [ ! -f $PBHOME/base-$NAME-lingnet.tgz ]; then
- #       echo "need to create pbuilder base $NAME-lingnet"
- #   else
- #       echo "need to update $NAME-lingnet"
- #       pbuilder --update --configfile $PBHOME/pbuilderrc-$NAME-lingnet
- #   fi
+		if [ ! -f $PBHOME/base-$NAME-lingnet.tgz ]; then
+			echo "need to create pbuilder base $NAME-lingnet"
+			sudo pbuilder --create --configfile $PBHOME/pbuilderrc-$NAME-lingnet
+		else
+			echo "need to update $NAME-lingnet"
+			sudo pbuilder --update --configfile $PBHOME/pbuilderrc-$NAME-lingnet
+		fi
 		if [ ! -f $PBHOME/base-$NAME-new.tgz ]; then
 			echo "need to create pbuilder base $NAME-new"
 			sudo pbuilder --create --configfile $PBHOME/pbuilderrc-$NAME-new

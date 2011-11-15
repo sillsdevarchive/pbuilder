@@ -40,7 +40,7 @@ echo "variant: $VARIANT"
 if [ "$VARIANT" = "new" ]; then
 	OTHERMIRROR="deb http://packages.palaso.org/ubuntu $DIST main|"
 elif [ "$VARIANT" = "lingnet" ]; then
-	OTHERMIRROR="deb http://packages.build2.lingnet/ubuntu lucid main|"
+	OTHERMIRROR="deb http://packages.lingnet/ubuntu $DIST main|"
 fi
 
 echo "arch: $ARCH"
