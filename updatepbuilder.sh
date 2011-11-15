@@ -21,7 +21,7 @@ do
 			echo "DIST=\"$target\"" > $PBHOME/pbuilderrc-$NAME-lingnet
 			echo "ARCH=\"$arch\"" >> $PBHOME/pbuilderrc-$NAME-lingnet
 			echo "VARIANT=\"lingnet\"" >> $PBHOME/pbuilderrc-$NAME-lingnet
-			echo "" >> $PBHOME/pbuilderrc-$target-lingnet
+			echo "" >> $PBHOME/pbuilderrc-$NAME-lingnet
 			echo "source $PBHOME/pbuilderrc_palaso" >> $PBHOME/pbuilderrc-$NAME-lingnet
 		fi
 		if [ ! -f $PBHOME/pbuilderrc-$NAME-new ]; then
