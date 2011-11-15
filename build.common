@@ -1,7 +1,7 @@
 export DEBSIGN_KEYID="mono teamcity"
 
 if [ ! -n "${BUILD_ARCHS}" ]; then
-	BUILD_ARCHS = "i386 amd64"
+	BUILD_ARCHS="i386 amd64"
 fi
 
 echo "build archs: $BUILD_ARCHS"
