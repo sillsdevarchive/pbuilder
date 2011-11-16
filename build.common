@@ -49,7 +49,7 @@ for ARCH in $BUILD_ARCHS; do
 	for TARGET in $TARGETS; do
 		NAME="$TARGET-$ARCH"
 		if [ -n "$VARIANT" ]; then
-			NAME = "$NAME-$VARIANT"
+			NAME="$NAME-$VARIANT"
 		fi
 		echo "name: $NAME"
 		VERSION=`dpkg-parsechangelog | grep 'Version:' | sed -e 's/^Version: //'`
