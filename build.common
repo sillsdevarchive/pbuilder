@@ -61,8 +61,8 @@ for ARCH in $BUILD_ARCHS; do
 		sudo pbuilder --update --configfile /home/bob/pbuilder/pbuilderrc-$NAME
 		pdebuild --architecture $ARCH --configfile /home/bob/pbuilder/pbuilderrc-$NAME --auto-debsign || exit $?
 		#pdebuild --architecture $ARCH --configfile /home/bob/pbuilder/pbuilderrc-$NAME --use-pdebuild-internal --auto-debsign || exit $?
-		dput ${PUBLISH}-${TARGET} /home/bob/pbuilder/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}*.changes || exit $?
-		echo "dput ${PUBLISH}-${TARGET} /home/bob/pbuilder/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}*.changes"
+		dput ${PUBLISH}-${TARGET} /home/bob/pbuilder/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
+		echo "dput ${PUBLISH}-${TARGET} /home/bob/pbuilder/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes"
 		cp $CHANGELOG debian/changelog
 	done
 done
