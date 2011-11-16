@@ -4,6 +4,10 @@ if [ ! -n "${BUILD_ARCHS}" ]; then
 	BUILD_ARCHS="i386 amd64"
 fi
 
+if [ ! -n "${BUILDTYPE}" ]; then
+	BUILDTYPE="orig"
+fi
+
 echo "build archs: $BUILD_ARCHS"
 echo "ziptype: ${ZIPTYPE}"
 
@@ -20,17 +24,22 @@ rm -fr $DEST
 mkdir $DEST
 cd $DEST
 
-echo ">> cp from ~/upstream"
-cp ~/upstream/${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}
+if [ "${BUILDTYPE}" = "native" ]; then
+	cp -r $HERE/../../${PRODUCT} ${PRODUCT}-${BASE}
+	cd ${PRODUCT}-${BASE}
+else
+	echo ">> cp from ~/upstream"
+	cp ~/upstream/${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}
 
-echo ">> ${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}"
-${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} || exit $?
-cd ${PRODUCT}-${BASE}
-mkdir debian
-cp -r $HERE/* debian
+	echo ">> ${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}"
+	${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} || exit $?
+	cd ${PRODUCT}-${BASE}
+	mkdir debian
+	cp -r $HERE/* debian
+	dpatch apply-all -v
+fi
+
 rm debian/build debian/gbp.conf
-
-dpatch apply-all -v
 
 CHANGELOG="`mktemp`" || exit $?
 cp debian/changelog "$CHANGELOG" || exit $?
