@@ -39,7 +39,7 @@ else
 	dpatch apply-all -v
 fi
 
-rm debian/build debian/gbp.conf
+rm debian/build
 
 CHANGELOG="`mktemp`" || exit $?
 cp debian/changelog "$CHANGELOG" || exit $?
