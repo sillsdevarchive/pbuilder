@@ -49,6 +49,15 @@ CHANGELOG="`mktemp`" || exit $?
 cp debian/changelog "$CHANGELOG" || exit $?
 echo "made changelog $CHANGELOG"
 
+if [ -n "${TCTARGET}" ]; then
+	for TARGET in $TARGETS; do
+		if [ "$TCTARGET"="$TARGET" ]; then
+			TARGETS="$TCTARGET"
+			echo "TeamCity building for $TARGETS"
+		fi
+	done
+fi
+
 for ARCH in $BUILD_ARCHS; do
 	for TARGET in $TARGETS; do
 		if [ "$ARCH"="source" ]; then
