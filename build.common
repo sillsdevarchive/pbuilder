@@ -8,6 +8,10 @@ if [ ! -n "${BUILDTYPE}" ]; then
 	BUILDTYPE="orig"
 fi
 
+if [ ! -n "${PUBLISH}" ]; then
+	PUBLISH='LINGNET'
+fi
+
 echo "build archs: $BUILD_ARCHS"
 echo "ziptype: ${ZIPTYPE}"
 
