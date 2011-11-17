@@ -51,7 +51,12 @@ echo "made changelog $CHANGELOG"
 
 for ARCH in $BUILD_ARCHS; do
 	for TARGET in $TARGETS; do
-		NAME="$TARGET-$ARCH"
+		if [ "$ARCH"="source" ]; then
+			: ${HOSTARCH:="$(dpkg --print-architecture)"}
+			NAME="$TARGET-$HOSTARCH"
+		else
+			NAME="$TARGET-$ARCH"
+		fi
 		if [ -n "$VARIANT" ]; then
 			NAME="$NAME-$VARIANT"
 		fi
@@ -63,8 +68,12 @@ for ARCH in $BUILD_ARCHS; do
 
 		echo ">> pdebuild"
 		sudo pbuilder --update --configfile /home/bob/pbuilder/pbuilderrc-$NAME
-		pdebuild --architecture $ARCH --configfile /home/bob/pbuilder/pbuilderrc-$NAME --auto-debsign || exit $?
-		#pdebuild --architecture $ARCH --configfile /home/bob/pbuilder/pbuilderrc-$NAME --use-pdebuild-internal --auto-debsign || exit $?
+		if [ "$ARCH"="source" ]; then
+			pdebuild --configfile /home/bob/pbuilder/pbuilderrc-$NAME --debuildopts "-S -sa" --auto-debsign || exit $?
+		else
+			pdebuild --architecture $ARCH --configfile /home/bob/pbuilder/pbuilderrc-$NAME --auto-debsign || exit $?
+			#pdebuild --architecture $ARCH --configfile /home/bob/pbuilder/pbuilderrc-$NAME --use-pdebuild-internal --auto-debsign || exit $?
+		fi
 		dput ${PUBLISH}-${TARGET} /home/bob/pbuilder/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
 		echo "dput ${PUBLISH}-${TARGET} /home/bob/pbuilder/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes"
 		cp $CHANGELOG debian/changelog
