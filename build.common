@@ -78,7 +78,7 @@ for ARCH in $BUILD_ARCHS; do
 		echo ">> pdebuild"
 		sudo pbuilder --update --configfile /home/bob/pbuilder/pbuilderrc-$NAME
 		if [ "$ARCH"="source" ]; then
-			pdebuild --configfile /home/bob/pbuilder/pbuilderrc-$NAME --debbuildopts "-S -sa" --auto-debsign || exit $?
+			pdebuild --configfile /home/bob/pbuilder/pbuilderrc-$NAME --debbuildopts "" --debbuildopts "-S -sa" --auto-debsign || exit $?
 		else
 			pdebuild --architecture $ARCH --configfile /home/bob/pbuilder/pbuilderrc-$NAME --auto-debsign || exit $?
 			#pdebuild --architecture $ARCH --configfile /home/bob/pbuilder/pbuilderrc-$NAME --use-pdebuild-internal --auto-debsign || exit $?
