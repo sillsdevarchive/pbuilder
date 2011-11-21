@@ -39,7 +39,7 @@ login = packager
 
 echo "[LINGNET-${TARGET}]
 method = scp
-fqdn = packages.lingnet
+fqdn =  pso-ppa
 incoming = /var/lib/debarchiver/incoming/${TARGET}
 login = packager
 "
