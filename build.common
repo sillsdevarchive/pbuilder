@@ -63,9 +63,12 @@ for ARCH in $BUILD_ARCHS; do
 	if [ "$ARCH"="source" ]; then
 		: ${HOSTARCH:="$(dpkg --print-architecture)"}
 		ORIG_TARGETS=$TARGETS
+		echo "ORIG_TARGETS: ${ORIG_TARGETS}"
 		TARGETS=${TARGETS[@]:0:1}
+		echo "new targets ${TARGETS}"
 	fi
 	for TARGET in $TARGETS[*]; do
+		echo "target: $TARGET"
 		if [ "$ARCH"="source" ]; then
 			NAME="$TARGET-$HOSTARCH"
 			dch -r --force-distribution --distribution $TARGET -m "Palaso source build" || exit $?
