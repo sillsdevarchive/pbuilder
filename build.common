@@ -30,7 +30,7 @@ mkdir $DEST
 cd $DEST
 
 if [ "$BUILD_ARCHS"!="source" ]; then
-	dpkg-source -x ${HERE}/building/${PRODUCT}_${BASE}*.dsc .
+	dpkg-source -x ${HERE}/building/${PRODUCT}_${BASE}*.dsc ${PRODUCT}-${BASE}
 	cd ${PRODUCT}-${BASE}
 else
 
