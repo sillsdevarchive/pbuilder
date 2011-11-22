@@ -29,6 +29,10 @@ rm -fr $DEST
 mkdir $DEST
 cd $DEST
 
+if [ "$BUILD_ARCHS"!="source" ]; then
+	dpkg-source -x ../source/${PRODUCT}-${BASE}*.dsc .
+else
+
 if [ "${BUILDTYPE}" = "native" ]; then
 	cp -r $HERE/../../${PRODUCT} ${PRODUCT}-${BASE}
 	cd ${PRODUCT}-${BASE}
@@ -43,6 +47,9 @@ else
 	cp -r $HERE/* debian
 	dpatch apply-all -v
 fi
+
+fi #source build
+
 
 rm debian/build
 
