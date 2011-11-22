@@ -87,7 +87,7 @@ for ARCH in $BUILD_ARCHS; do
 			pdebuild --configfile ${PBHOME}/pbuilderrc-$NAME --debbuildopts "" --debbuildopts "-S -sa -us -uc" || exit $?
 			debsign -k"${DEBSIGN_KEYID}"  -S ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}_${ARCH}.changes || exit $?
 			for DPUT_TARGET in $ORIG_TARGETS; do
-				dput ${PUBLISH}-${DPUT_TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}__${ARCH}.changes || exit $?
+				dput ${PUBLISH}-${DPUT_TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}_${ARCH}.changes || exit $?
 				echo "dput ${PUBLISH}-${DPUT_TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}_${ARCH}.changes"
 			done
 		else
