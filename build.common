@@ -60,19 +60,24 @@ if [ -n "${TCTARGET}" ]; then
 fi
 
 for ARCH in $BUILD_ARCHS; do
+	if [ "$ARCH"="source" ]; then
+		: ${HOSTARCH:="$(dpkg --print-architecture)"}
+		ORIG_TARGETS=$TARGETS
+		TARGETS=${TARGETS[0]}
+	fi
 	for TARGET in $TARGETS; do
 		if [ "$ARCH"="source" ]; then
-			: ${HOSTARCH:="$(dpkg --print-architecture)"}
 			NAME="$TARGET-$HOSTARCH"
+			dch -r --force-distribution --distribution $TARGET -m "Palaso source build" || exit $?
 		else
 			NAME="$TARGET-$ARCH"
+			dch -R --force-distribution --distribution $TARGET -m "Auto build" || exit $?
 		fi
 		if [ -n "$VARIANT" ]; then
 			NAME="$NAME-$VARIANT"
 		fi
 		echo "name: $NAME"
 		VERSION=`dpkg-parsechangelog | grep 'Version:' | sed -e 's/^Version: //'`
-		dch --force-distribution --distribution $TARGET -m -v $VERSION.$REVISION "Auto Build" || exit $?
 		echo "version:$VERSION revision:$REVISION"
 		head -n 6 debian/changelog
 
@@ -81,12 +86,15 @@ for ARCH in $BUILD_ARCHS; do
 		if [ "$ARCH"="source" ]; then
 			pdebuild --configfile ${PBHOME}/pbuilderrc-$NAME --debbuildopts "" --debbuildopts "-S -sa -us -uc" || exit $?
 			debsign -k"${DEBSIGN_KEYID}"  -S ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
+			for DPUT_TARGET in $ORIG_TARGETS; do
+				dput ${PUBLISH}-${DPUT_TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
+			done
 		else
 			pdebuild --architecture $ARCH --configfile ${PBHOME}/pbuilderrc-$NAME --auto-debsign || exit $?
 			#pdebuild --architecture $ARCH --configfile ${PBHOME}/pbuilderrc-$NAME --use-pdebuild-internal --auto-debsign || exit $?
+			dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
+			echo "dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes"
 		fi
-		dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
-		echo "dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes"
 		cp $CHANGELOG debian/changelog
 	done
 done
