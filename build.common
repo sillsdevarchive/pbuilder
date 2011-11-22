@@ -116,6 +116,9 @@ for ARCH in $BUILD_ARCHS; do
 		fi
 		cp $CHANGELOG debian/changelog
 	done
+	if [ -n "${ORIG_TARGETS}" ]; then
+		TARGETS="${ORIG_TARGETS}"
+	fi
 done
 
 rm $CHANGELOG
