@@ -29,7 +29,7 @@ rm -fr $DEST
 mkdir $DEST
 cd $DEST
 
-if [ "$BUILD_ARCHS" != "source" ]; then
+if [ "${BUILD_ARCHS:0:6}" != "source" ]; then
 	dpkg-source -x ${HERE}/building/${PRODUCT}_${BASE}*.dsc ${PRODUCT}-${BASE}
 	cd ${PRODUCT}-${BASE}
 else
