@@ -85,15 +85,16 @@ for ARCH in $BUILD_ARCHS; do
 		sudo pbuilder --update --configfile ${PBHOME}/pbuilderrc-$NAME
 		if [ "$ARCH"="source" ]; then
 			pdebuild --configfile ${PBHOME}/pbuilderrc-$NAME --debbuildopts "" --debbuildopts "-S -sa -us -uc" || exit $?
-			debsign -k"${DEBSIGN_KEYID}"  -S ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
+			debsign -k"${DEBSIGN_KEYID}"  -S ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}_${ARCH}.changes || exit $?
 			for DPUT_TARGET in $ORIG_TARGETS; do
-				dput ${PUBLISH}-${DPUT_TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
+				dput ${PUBLISH}-${DPUT_TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}__${ARCH}.changes || exit $?
+				echo "dput ${PUBLISH}-${DPUT_TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}_${ARCH}.changes"
 			done
 		else
 			pdebuild --architecture $ARCH --configfile ${PBHOME}/pbuilderrc-$NAME --auto-debsign || exit $?
 			#pdebuild --architecture $ARCH --configfile ${PBHOME}/pbuilderrc-$NAME --use-pdebuild-internal --auto-debsign || exit $?
-			dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
-			echo "dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes"
+			dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}_${ARCH}.changes || exit $?
+			echo "dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}_${ARCH}.changes"
 		fi
 		cp $CHANGELOG debian/changelog
 	done
