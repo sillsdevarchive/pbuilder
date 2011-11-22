@@ -1,4 +1,5 @@
 export DEBSIGN_KEYID="mono teamcity"
+PBHOME=/home/bob/pbuilder
 
 if [ ! -n "${BUILD_ARCHS}" ]; then
 	BUILD_ARCHS="i386 amd64"
@@ -76,16 +77,16 @@ for ARCH in $BUILD_ARCHS; do
 		head -n 6 debian/changelog
 
 		echo ">> pdebuild"
-		sudo pbuilder --update --configfile /home/bob/pbuilder/pbuilderrc-$NAME
+		sudo pbuilder --update --configfile ${PBHOME}/pbuilderrc-$NAME
 		if [ "$ARCH"="source" ]; then
-			pdebuild --configfile /home/bob/pbuilder/pbuilderrc-$NAME --debbuildopts "" --debbuildopts "-S -sa -us -uc" || exit $?
-			debsign -k${DEBSIGN_KEYID} -S || exit $?
+			pdebuild --configfile ${PBHOME}/pbuilderrc-$NAME --debbuildopts "" --debbuildopts "-S -sa -us -uc" || exit $?
+			debsign -k"${DEBSIGN_KEYID}"  -S ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
 		else
-			pdebuild --architecture $ARCH --configfile /home/bob/pbuilder/pbuilderrc-$NAME --auto-debsign || exit $?
-			#pdebuild --architecture $ARCH --configfile /home/bob/pbuilder/pbuilderrc-$NAME --use-pdebuild-internal --auto-debsign || exit $?
+			pdebuild --architecture $ARCH --configfile ${PBHOME}/pbuilderrc-$NAME --auto-debsign || exit $?
+			#pdebuild --architecture $ARCH --configfile ${PBHOME}/pbuilderrc-$NAME --use-pdebuild-internal --auto-debsign || exit $?
 		fi
-		dput ${PUBLISH}-${TARGET} /home/bob/pbuilder/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
-		echo "dput ${PUBLISH}-${TARGET} /home/bob/pbuilder/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes"
+		dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes || exit $?
+		echo "dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}.${REVISION}_${ARCH}.changes"
 		cp $CHANGELOG debian/changelog
 	done
 done
