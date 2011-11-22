@@ -64,9 +64,9 @@ for ARCH in $BUILD_ARCHS; do
 		: ${HOSTARCH:="$(dpkg --print-architecture)"}
 		ORIG_TARGETS=${TARGETS}
 		echo "ORIG_TARGETS: ${ORIG_TARGETS}"
-		NEWTARGETS=""
+		NEWTARGET=""
 		for TARGET in ${ORIG_TARGETS}; do
-			while [ -z ${NEWTARGETS} ]; do
+			while [ -z ${NEWTARGET} ]; do
 				NEWTARGET="${TARGET}"
 			done
 		done
