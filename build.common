@@ -52,7 +52,7 @@ fi
 fi #source build
 
 
-rm debian/build
+rm -r debian/build debian/building
 
 CHANGELOG="`mktemp`" || exit $?
 cp debian/changelog "$CHANGELOG" || exit $?
