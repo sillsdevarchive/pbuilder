@@ -29,7 +29,7 @@ rm -fr $DEST
 mkdir $DEST
 cd $DEST
 
-if [ "$BUILD_ARCHS"!="source" ]; then
+if [ "${BUILD_ARCHS:0:6}" != "source" ]; then
 	dpkg-source -x ${HERE}/building/${PRODUCT}_${BASE}*.dsc ${PRODUCT}-${BASE}
 	cd ${PRODUCT}-${BASE}
 else
@@ -60,7 +60,7 @@ echo "made changelog $CHANGELOG"
 
 if [ -n "${TCTARGET}" ]; then
 	for TARGET in ${TARGETS}; do
-		if [ "$TCTARGET"="$TARGET" ]; then
+		if [ "$TCTARGET" = "$TARGET" ]; then
 			TARGETS="$TCTARGET"
 			echo "TeamCity building for $TARGETS"
 		fi
@@ -68,7 +68,8 @@ if [ -n "${TCTARGET}" ]; then
 fi
 
 for ARCH in $BUILD_ARCHS; do
-	if [ "$ARCH"="source" ]; then
+	echo "arch: $ARCH"
+	if [ "$ARCH" = "source" ]; then
 		: ${HOSTARCH:="$(dpkg --print-architecture)"}
 		ORIG_TARGETS=${TARGETS}
 		echo "ORIG_TARGETS: ${ORIG_TARGETS}"
@@ -83,7 +84,7 @@ for ARCH in $BUILD_ARCHS; do
 	fi
 	for TARGET in ${TARGETS}; do
 		echo "target: $TARGET"
-		if [ "$ARCH"="source" ]; then
+		if [ "$ARCH" = "source" ]; then
 			NAME="$TARGET-$HOSTARCH"
 			dch -r --force-distribution --distribution $TARGET -m "Palaso source build" || exit $?
 		else
@@ -100,7 +101,7 @@ for ARCH in $BUILD_ARCHS; do
 
 		echo ">> pdebuild"
 		sudo pbuilder --update --configfile ${PBHOME}/pbuilderrc-$NAME
-		if [ "$ARCH"="source" ]; then
+		if [ "$ARCH" = "source" ]; then
 			pdebuild --configfile ${PBHOME}/pbuilderrc-$NAME --debbuildopts "" --debbuildopts "-S -sa -us -uc" || exit $?
 			debsign -k"${DEBSIGN_KEYID}"  -S ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}_${ARCH}.changes || exit $?
 			for DPUT_TARGET in $ORIG_TARGETS; do
@@ -115,6 +116,9 @@ for ARCH in $BUILD_ARCHS; do
 		fi
 		cp $CHANGELOG debian/changelog
 	done
+	if [ -n "${ORIG_TARGETS}" ]; then
+		TARGETS="${ORIG_TARGETS}"
+	fi
 done
 
 rm $CHANGELOG
