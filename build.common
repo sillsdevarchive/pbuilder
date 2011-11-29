@@ -18,7 +18,7 @@ echo "ziptype: ${ZIPTYPE}"
 
 if [ "${ZIPTYPE}" = "bz2" ]; then
 	TAR='tar -xjf'
-elif [ "{$ZIPTYPE}" = "gz" ]; then
+elif [ "${ZIPTYPE}" = "gz" ]; then
 	TAR='tar -xzf'
 else
 	TAR='tar -xf'
