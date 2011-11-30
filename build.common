@@ -44,13 +44,14 @@ else
 	echo ">> ${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}"
 	${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} || exit $?
 	if [ -n "${ALTSOURCEDIR}" ]; then
-		mv "${ALTSOURCEDIR}" ${PRODUCT}-${BASE}
+		mv "${ALTSOURCEDIR}" ${PRODUCT}-${BASE} || exit $?
 	fi
 	cd ${PRODUCT}-${BASE}
+	pwd
 	rm -r debian
 	mkdir debian
-	cp -r $HERE/* debian
-	dpatch apply-all -v
+	cp -r $HERE/* debian/ || exit $?
+	#dpatch apply-all -v
 fi
 
 fi #source build
