@@ -43,6 +43,9 @@ else
 
 	echo ">> ${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}"
 	${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} || exit $?
+	if [ -n "${ALTSOURCEDIR}" ]; then
+		mv "${ALTSOURCEDIR}" ${PRODUCT}-${BASE}
+	fi
 	cd ${PRODUCT}-${BASE}
 	mkdir debian
 	cp -r $HERE/* debian
