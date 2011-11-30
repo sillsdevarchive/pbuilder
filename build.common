@@ -47,6 +47,7 @@ else
 		mv "${ALTSOURCEDIR}" ${PRODUCT}-${BASE}
 	fi
 	cd ${PRODUCT}-${BASE}
+	rm -r debian
 	mkdir debian
 	cp -r $HERE/* debian
 	dpatch apply-all -v
