@@ -21,8 +21,7 @@ if [ -n "${VARIANT}" ]; then
 	NAME="$NAME-$VARIANT"
 fi
 
-#BASETGZ=/home/bob/pbuilder/base-$NAME.tgz
-BASEPATH="/var/cache/pbuilder/$NAME/base.cow/
+BASETGZ=/home/bob/pbuilder/base-$NAME.tgz
 
 echo "name: $NAME"
 echo "dist: $DIST"
@@ -124,13 +123,5 @@ PKGNAME_LOGFILE_EXTENTION="_$ARCH.build"
 
 # default PKGNAME_LOGFILE
 PKGNAME_LOGFILE=""
-
-EXTRAPACKAGES="eatmydata"
-if [ -z "$LD_PRELOAD" ]; then
-  LD_PRELOAD="/usr/lib/libeatmydata/libeatmydata.so"
-else
-  LD_PRELOAD="${LD_PRELOAD}:/usr/lib/libeatmydata/libeatmydata.so"
-fi
-export LD_PRELOAD
 
 echo "Finished"
