@@ -47,7 +47,16 @@ fi
 
 echo "arch: $ARCH"
 
-OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST main|deb http://archive.ubuntu.com/ubuntu $DIST universe restricted multiverse"
+if [ -n "${TOONEW}" ]; then
+	if ["$ARCH" != "$TOONEW" ]; then
+		OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST main|"
+	fi
+else
+	OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST main|"
+fi
+
+
+OTHERMIRROR="${OTHERMIRROR}deb http://archive.ubuntu.com/ubuntu $DIST universe restricted multiverse"
 
 echo "othermirror: $OTHERMIRROR"
 
