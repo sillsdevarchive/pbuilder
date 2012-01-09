@@ -1,6 +1,8 @@
 # This is the shared configuration file to be sourced by
 #individual conf scripts
 
+source /home/bob/pbuilder/targets
+
 # Optionally set the architecture to the host architecture if none set. Note
 # that you can set your own default (i.e. ${ARCH:="i386"}).
 
@@ -48,10 +50,14 @@ fi
 echo "arch: $ARCH"
 
 if [ -n "${TOONEW}" ]; then
-	if ["$ARCH" != "$TOONEW" ]; then
+	if [ "${DIST}" != "${TOONEW}" ]; then
+		echo "dist $DIST not too new $TOONEW"
 		OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST main|"
+	else
+		echo "dist $DIST too new $TOONEW"
 	fi
 else
+	echo "no dists too new"
 	OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST main|"
 fi
 
