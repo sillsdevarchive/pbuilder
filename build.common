@@ -116,7 +116,11 @@ for ARCH in $BUILD_ARCHS; do
 				done
 			fi
 		else
-			pdebuild --architecture $ARCH --configfile ${PBHOME}/pbuilderrc-$NAME --auto-debsign || exit $?
+			if [ -n "${AMD64_MAINBUILD}" ]; then
+				pdebuild --architecture $ARCH --configfile ${PBHOME}/pbuilderrc-$NAME --auto-debsign  --debbuildopts "" --debbuildopts "-b" || exit $?
+			else
+				pdebuild --architecture $ARCH --configfile ${PBHOME}/pbuilderrc-$NAME --auto-debsign || exit $?
+			fi
 			#pdebuild --architecture $ARCH --configfile ${PBHOME}/pbuilderrc-$NAME --use-pdebuild-internal --auto-debsign || exit $?
 			if [ ! -n "${NO_DPUT}" ]; then
 				dput ${PUBLISH}-${TARGET} ${PBHOME}/results/$TARGET/${PRODUCT}_${VERSION}_${ARCH}.changes || exit $?
