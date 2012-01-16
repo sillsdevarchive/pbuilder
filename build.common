@@ -30,16 +30,16 @@ mkdir $DEST
 cd $DEST
 
 if [ "${BUILD_ARCHS:0:6}" != "source" ]; then
-	dpkg-source -x ${HERE}/building/${PRODUCT}_${BASE}*.dsc ${PRODUCT}-${BASE}
+	dpkg-source -x ${HERE}/building/${PRODUCT}_${BASE}*.dsc ${PRODUCT}-${BASE}  || exit $?
 	cd ${PRODUCT}-${BASE}
 else
 
 if [ "${BUILDTYPE}" = "native" ]; then
-	cp -r $HERE/../../${PRODUCT} ${PRODUCT}-${BASE}
+	cp -r $HERE/../../${PRODUCT} ${PRODUCT}-${BASE}  || exit $?
 	cd ${PRODUCT}-${BASE}
 else
 	echo ">> cp from ~/upstream"
-	cp ~/upstream/${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}
+	cp ~/upstream/${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}  || exit $?
 
 	echo ">> ${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE}"
 	${TAR} ${PRODUCT}_${BASE}.orig.tar.${ZIPTYPE} || exit $?
