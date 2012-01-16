@@ -13,6 +13,10 @@ if [ ! -n "${PUBLISH}" ]; then
 	PUBLISH='LINGNET'
 fi
 
+if [ ! -n "${BUILDINGDIR}" ]; then
+	BUILDINGDIR=${HERE}/building
+fi
+
 echo "build archs: $BUILD_ARCHS"
 echo "ziptype: ${ZIPTYPE}"
 
@@ -30,7 +34,7 @@ mkdir $DEST
 cd $DEST
 
 if [ "${BUILD_ARCHS:0:6}" != "source" ]; then
-	dpkg-source -x ${HERE}/building/${PRODUCT}_${BASE}*.dsc ${PRODUCT}-${BASE}  || exit $?
+	dpkg-source -x ${BUILDINGDIR}/${PRODUCT}_${BASE}*.dsc ${PRODUCT}-${BASE}  || exit $?
 	cd ${PRODUCT}-${BASE}
 else
 
