@@ -104,7 +104,7 @@ for ARCH in $BUILD_ARCHS; do
 			NAME="$NAME-$VARIANT"
 		fi
 		echo "name: $NAME"
-		VERSION=`dpkg-parsechangelog | grep 'Version:' | sed -e 's/^Version: //'`
+		VERSION=`dpkg-parsechangelog | grep 'Version:' | sed -e 's/^Version: //' | cut -d\: -f2`
 		echo "version:$VERSION revision:$REVISION"
 		head -n 6 debian/changelog
 
