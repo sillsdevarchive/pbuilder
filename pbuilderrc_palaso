@@ -79,7 +79,7 @@ DISTRIBUTION=$DIST
 # specifying the components of the distribution (default is "main")
 #COMPONENTS="main restricted universe multiverse"
 #specify the cache for APT
-APTCACHE="/home/bob/pbuilder/aptcache/"
+APTCACHE="/home/bob/pbuilder/aptcache/$DIST"
 APTCACHEHARDLINK="yes"
 REMOVEPACKAGES="lilo"
 #HOOKDIR="/usr/lib/pbuilder/hooks"
