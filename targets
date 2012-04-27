@@ -1,3 +1,2 @@
 TARGETS="lucid natty oneiric precise"
 BUILD_ARCH="i386 amd64"
-TOONEW="precise"
