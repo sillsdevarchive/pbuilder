@@ -93,12 +93,14 @@ for ARCH in $BUILD_ARCHS; do
 	fi
 	for TARGET in ${TARGETS}; do
 		echo "target: $TARGET"
+#dch -l~precise --distribution UNRELEASED -c changelog.test "build for precise"
 		if [ "$ARCH" = "source" ]; then
 			NAME="$TARGET-$HOSTARCH"
-			dch -r --force-distribution --distribution $TARGET -m "Palaso source build" || exit $?
+#            dch -r --force-distribution --distribution unstable -m "Palaso source build" || exit $?
 		else
 			NAME="$TARGET-$ARCH"
-			dch -R --force-distribution --distribution $TARGET -m "Auto build" || exit $?
+#            dch -R --force-distribution --distribution $TARGET -m "Auto build for $TARGET" || exit $?
+			dch -l+${TARGET} --force-distribution --distribution ${TARGET} -m "Auto build for ${TARGET}" || exit $?
 		fi
 		if [ -n "$VARIANT" ]; then
 			NAME="$NAME-$VARIANT"
