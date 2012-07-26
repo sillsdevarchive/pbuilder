@@ -63,6 +63,7 @@ fi
 
 
 OTHERMIRROR="${OTHERMIRROR}deb http://archive.ubuntu.com/ubuntu $DIST universe restricted multiverse"
+OTHERMIRROR="${OTHERMIRROR}|deb http://security.ubuntu.com/ubuntu $DIST-security main universe restricted multiverse"
 
 echo "othermirror: $OTHERMIRROR"
 
