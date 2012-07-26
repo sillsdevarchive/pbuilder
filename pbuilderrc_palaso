@@ -53,6 +53,7 @@ if [ -n "${TOONEW}" ]; then
 	if [ "${DIST}" != "${TOONEW}" ]; then
 		echo "dist $DIST not too new $TOONEW"
 		OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST main|"
+		OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST-experimental main|"
 	else
 		echo "dist $DIST too new $TOONEW"
 	fi
