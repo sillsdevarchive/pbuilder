@@ -60,6 +60,7 @@ if [ -n "${TOONEW}" ]; then
 else
 	echo "no dists too new"
 	OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST main|"
+	OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST-experimental main|"
 fi
 
 
