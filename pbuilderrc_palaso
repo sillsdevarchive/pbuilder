@@ -53,6 +53,7 @@ if [ -n "${TOONEW}" ]; then
 	if [ "${DIST}" != "${TOONEW}" ]; then
 		echo "dist $DIST not too new $TOONEW"
 		OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST main|"
+		OTHERMIRROR="${OTHERMIRROR}deb http://packages.sil.org/ubuntu $DIST-experimental main|"
 	else
 		echo "dist $DIST too new $TOONEW"
 	fi
@@ -63,6 +64,7 @@ fi
 
 
 OTHERMIRROR="${OTHERMIRROR}deb http://archive.ubuntu.com/ubuntu $DIST universe restricted multiverse"
+OTHERMIRROR="${OTHERMIRROR}|deb http://security.ubuntu.com/ubuntu $DIST-security main universe restricted multiverse"
 
 echo "othermirror: $OTHERMIRROR"
 
@@ -79,7 +81,7 @@ DISTRIBUTION=$DIST
 # specifying the components of the distribution (default is "main")
 #COMPONENTS="main restricted universe multiverse"
 #specify the cache for APT
-APTCACHE="/home/bob/pbuilder/aptcache/"
+APTCACHE="/home/bob/pbuilder/aptcache/$DIST"
 APTCACHEHARDLINK="yes"
 REMOVEPACKAGES="lilo"
 #HOOKDIR="/usr/lib/pbuilder/hooks"

@@ -1,2 +1,2 @@
-TARGETS="lucid natty oneiric precise"
+TARGETS="lucid natty oneiric precise quantal"
 BUILD_ARCH="i386 amd64"
