@@ -1,0 +1,6 @@
+build
+aptcache
+results
+*.tgz
+pbuilderrc-*
+targets.old
